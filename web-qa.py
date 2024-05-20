@@ -52,7 +52,7 @@ def get_hyperlinks(url):
     # Try to open the URL and read the HTML
     try:
         # Open the URL and read the HTML
-        with urllib.request.urlopen(url) as response:
+        with urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})) as response:
 
             # If the response is not HTML, return an empty list
             if not response.info().get('Content-Type').startswith("text/html"):
@@ -351,7 +351,7 @@ def create_context(
 
 def answer_question(
     df,
-    model="text-davinci-003",
+    model="gpt-3.5-turbo-instruct",
     question="Am I allowed to publish model outputs to Twitter, without a human review?",
     max_len=1800,
     size="ada",
@@ -397,3 +397,5 @@ def answer_question(
 print(answer_question(df, question="What day is it?", debug=False))
 
 print(answer_question(df, question="What is our newest embeddings model?"))
+
+# print(df.head())
